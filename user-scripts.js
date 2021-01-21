@@ -24,7 +24,7 @@ function userSignUp() {
   })
   .catch((err) => {
     console.log(err);
-  })
+  });
 }
   
   
@@ -32,7 +32,30 @@ function userSignUp() {
   *** USER LOGIN ***
   ************************** */
   function userLogin() {
-   console.log('userLogin Function Called')
+   //console.log('userLogin Function Called')
+    let userEmail = document.getElementById('emailLogin').value;
+    let userPass = document.getElementById('pwdLogin').value;
+    let loginUserData = {user: {email: userEmail, password: userPass}};
+    console.log(`LOGINUSERDATA ==> ${loginUserData.user.email} ${loginUserData.user.password}`);
+
+    fetch('http://localhost:3000/user/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type' : 'application/json'
+      },
+      body: JSON.stringify(loginUserData)
+    })
+    .then(response => response.json())
+    .then(function(response){
+      console.log(response);
+      let token = response.sessionToken;
+      localStorage.setItem('SessionToken', token);
+      tokenChecker();
+    })
+    .catch((err) => {
+      console.log(err)
+    });
+
   }
   
   
@@ -40,7 +63,10 @@ function userSignUp() {
   *** USER LOGOUT ***
   ************************** */
   function userLogout() {
-   console.log('userLogout Function Called')
+   //console.log('userLogout Function Called')
+    localStorage.setItem('SessionToken', undefined);
+    console.log(`sessionToken ==> ${localStorage.sessionToken}`);
+    tokenChecker();
   }
   
   
