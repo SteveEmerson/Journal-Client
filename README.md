@@ -1,3 +1,3 @@
 # Journal-Client
 ## ElevenFifty Academy Blue Badge
-### Practice application using React function components and JavaScript
+### Practice application using HTML, JavaScript and Bootstrap
